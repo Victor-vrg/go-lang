@@ -2,14 +2,14 @@ package controllers
 
 import (
 	"database/sql"
-	"log"
 	"net/http"
 	"time"
+
+	"os"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gofiber/fiber/v2"
 	"golang.org/x/crypto/bcrypt"
-	"os"
 )
 
 type Claims struct {

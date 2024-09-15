@@ -2,10 +2,10 @@ package controllers
 
 import (
 	"database/sql"
+	"log"
 	"net/http"
-	"time"
-
 	"os"
+	"time"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gofiber/fiber/v2"
@@ -37,6 +37,7 @@ func Register(c *fiber.Ctx) error {
 
 	_, err = c.Locals("db").(*sql.DB).Exec("INSERT INTO users (username, password) VALUES ($1, $2)", input.Username, hashedPassword)
 	if err != nil {
+		log.Println("SQL Error:", err)
 		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{"error": "User creation failed"})
 	}
 

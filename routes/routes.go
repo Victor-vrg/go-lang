@@ -11,6 +11,8 @@ func Setup(app *fiber.App) {
 	app.Post("/login", controllers.Login)
 	app.Post("/logout", controllers.Logout)
 
+	app.Post("/add-task", controllers.AddTask)
+
 	protected := app.Group("/protected")
 	protected.Use(middleware.JWTMiddleware)
 	protected.Get("/", func(c *fiber.Ctx) error {

@@ -12,7 +12,6 @@ func main() {
 	app := fiber.New()
 
 	config.ConnectDB()
-	defer config.DB.Close()
 
 	app.Use(func(c *fiber.Ctx) error {
 		c.Locals("db", config.DB)

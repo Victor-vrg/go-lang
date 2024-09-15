@@ -52,17 +52,20 @@ func Login(c *fiber.Ctx) error {
 
 	var input LoginInput
 	if err := c.BodyParser(&input); err != nil {
+		log.Println("SQL Error:", err)
 		return c.Status(http.StatusBadRequest).JSON(fiber.Map{"error": "Invalid input"})
 	}
 
 	var hashedPassword string
 	err := c.Locals("db").(*sql.DB).QueryRow("SELECT password FROM users WHERE username = $1", input.Username).Scan(&hashedPassword)
 	if err != nil {
+		log.Println("SQL Error:", err)
 		return c.Status(http.StatusUnauthorized).JSON(fiber.Map{"error": "Invalid credentials"})
 	}
 
 	err = bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(input.Password))
 	if err != nil {
+		log.Println("SQL Error:", err)
 		return c.Status(http.StatusUnauthorized).JSON(fiber.Map{"error": "Invalid credentials"})
 	}
 

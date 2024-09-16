@@ -4,4 +4,4 @@ global:
 scrape_configs:
   - job_name: 'go_app'
     static_configs:
-      - targets: ['https://steadfast-healing-production.up.railway.app/:3000']  
+      - targets: ['app:3000']
